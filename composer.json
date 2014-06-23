@@ -1,9 +1,11 @@
 {
     "name": "acelot/validation",
+    "description": "Validation utility for PHP5",
     "version": "0.1.0",
     "type": "library",
-    "description": "Validation utility for PHP5",
     "keywords": ["validation", "php"],
+    "homepage": "https://github.com/acelot/validation",
+    "license" : "MIT",
     "authors": [
         {
             "name": "Valeriy Protopopov",
