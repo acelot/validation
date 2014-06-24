@@ -31,6 +31,14 @@ class Regex extends Validator
      */
     public function validate($value, $wholeData = null)
     {
+        /*
+         * If value is blank return true.
+         * Use NotBlank before Regex to avoid this behavior.
+         */
+        if (strlen($value) === 0) {
+            return true;
+        }
+
         return preg_match($this->pattern, $value);
     }
 }

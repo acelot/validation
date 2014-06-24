@@ -1,7 +1,7 @@
 {
     "name": "acelot/validation",
     "description": "Validation utility for PHP5",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "type": "library",
     "keywords": ["validation", "php"],
     "homepage": "https://github.com/acelot/validation",
