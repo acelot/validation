@@ -63,13 +63,14 @@ class Validation
     public function validate($data)
     {
         $this->errors = array();
+        $missingFields = array();
 
         foreach ($this->rules as $field => $rule) {
             /** @var $validator IValidatable */
             foreach ($rule['validators'] as $validator) {
                 if (!isset($data[$field])) {
                     if ($rule['required']) {
-                        throw new ValidationRequiredFieldMissingException($this);
+                        $missingFields[] = $field;
                     }
 
                     break;
@@ -84,6 +85,10 @@ class Validation
                     }
                 }
             }
+        }
+
+        if (count($missingFields)) {
+            throw new ValidationRequiredFieldMissingException($this, $missingFields);
         }
 
         if (count($this->errors)) {
