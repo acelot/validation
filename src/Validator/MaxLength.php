@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class MaxLength extends Validator
+class MaxLength extends AbstractValidator implements IValidatable
 {
     /**
      * @var int

@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class Integer extends Validator
+class Integer extends AbstractValidator implements IValidatable
 {
     /**
      * @var bool

@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class MinLength extends Validator
+class MinLength extends AbstractValidator implements IValidatable
 {
     /**
      * @var int

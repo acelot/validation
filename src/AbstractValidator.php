@@ -8,22 +8,12 @@
 
 namespace Acelot\Validation;
 
-abstract class Validator implements IValidatable
+abstract class AbstractValidator
 {
     /**
      * @var string
      */
     protected $template;
-
-    /**
-     * @param mixed $value
-     * @param array $wholeData
-     * @return bool
-     */
-    public function validate($value, $wholeData = null)
-    {
-        return false;
-    }
 
     /**
      * @param string $template

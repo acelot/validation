@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class EqualTo extends Validator
+class EqualTo extends AbstractValidator implements IValidatable
 {
     /**
      * @var string

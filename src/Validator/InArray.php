@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class InArray extends Validator
+class InArray extends AbstractValidator implements IValidatable
 {
     /**
      * @var array

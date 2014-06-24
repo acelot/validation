@@ -2,9 +2,10 @@
 
 namespace Acelot\Validation\Validator;
 
-use Acelot\Validation\Validator;
+use Acelot\Validation\IValidatable;
+use Acelot\Validation\AbstractValidator;
 
-class Regex extends Validator
+class Regex extends AbstractValidator implements IValidatable
 {
     /**
      * @var string
