@@ -17,6 +17,11 @@ class IntegerRange extends Validator
     protected $max;
 
     /**
+     * @var int
+     */
+    protected $step;
+
+    /**
      * @var string
      */
     protected $template = 'Field value must be in the range from {min} to {max}';
@@ -25,14 +30,15 @@ class IntegerRange extends Validator
      * @param int $min
      * @param int $max
      */
-    public function __construct($min, $max)
+    public function __construct($min, $max, $step = 1)
     {
-        if (!is_int($min) || !is_int($max)) {
+        if (!is_int($min) || !is_int($max) || !is_int($step)) {
             throw new \InvalidArgumentException('Arguments must be an integers');
         }
 
         $this->min = $min;
         $this->max = $max;
+        $this->step = $step;
     }
 
     /**
@@ -42,6 +48,6 @@ class IntegerRange extends Validator
     {
         $value = intval($value);
 
-        return $value >= $this->min && $value <= $this->max;
+        return in_array($value, range($this->min, $this->max, $this->step));
     }
 }
