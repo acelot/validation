@@ -10,10 +10,15 @@ namespace Acelot\Validation;
 
 abstract class Validator implements IValidatable
 {
+    /**
+     * @var string
+     */
     protected $template;
 
     /**
-     * @return boolean
+     * @param mixed $value
+     * @param array $wholeData
+     * @return bool
      */
     public function validate($value, $wholeData = null)
     {
@@ -21,7 +26,8 @@ abstract class Validator implements IValidatable
     }
 
     /**
-     * @return string
+     * @param string $template
+     * @return mixed
      */
     public function getMessage($template = null)
     {

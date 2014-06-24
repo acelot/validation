@@ -6,10 +6,15 @@ use Acelot\Validation\Validator;
 
 class Email extends Validator
 {
+    /**
+     * @var string
+     */
     protected $template = 'Invalid email';
 
     /**
-     * @return boolean
+     * @param string $value
+     * @param array $wholeData
+     * @return mixed
      */
     public function validate($value, $wholeData = null)
     {

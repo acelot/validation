@@ -6,9 +6,19 @@ use Acelot\Validation\Validator;
 
 class UserFunc extends Validator
 {
+    /**
+     * @var callable
+     */
     protected $function;
+
+    /**
+     * @var string
+     */
     protected $template;
 
+    /**
+     * @param callable $function
+     */
     public function __construct(callable $function)
     {
         $this->function = $function;
@@ -16,7 +26,9 @@ class UserFunc extends Validator
     }
 
     /**
-     * @return boolean
+     * @param string $value
+     * @param array $wholeData
+     * @return mixed
      */
     public function validate($value, $wholeData = null)
     {

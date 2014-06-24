@@ -6,16 +6,28 @@ use Acelot\Validation\Validator;
 
 class Regex extends Validator
 {
+    /**
+     * @var string
+     */
     protected $pattern;
+
+    /**
+     * @var string
+     */
     protected $template = 'Field must match the pattern "{pattern}"';
 
+    /**
+     * @param string $pattern
+     */
     public function __construct($pattern)
     {
         $this->pattern = $pattern;
     }
 
     /**
-     * @return boolean
+     * @param string $value
+     * @param array $wholeData
+     * @return int
      */
     public function validate($value, $wholeData = null)
     {

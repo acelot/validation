@@ -7,7 +7,13 @@ use Acelot\Validation\Exception\ValidationRequiredFieldMissingException;
 
 class Validation
 {
+    /**
+     * @var array
+     */
     protected $rules;
+    /**
+     * @var array
+     */
     protected $errors;
 
     public function __construct()
@@ -19,6 +25,7 @@ class Validation
      * @param string $field
      * @param array $validators
      * @param boolean $stopOnFirst
+     * @param boolean $required
      * @return $this
      */
     public function rule($field, $validators, $stopOnFirst = true, $required = false)
@@ -84,12 +91,16 @@ class Validation
         }
     }
 
+    /**
+     * @throws Exception\ValidationException
+     */
     public function throwException()
     {
         throw new ValidationException($this);
     }
 
     /**
+     * @param array $messages
      * @return array
      */
     public function getErrors(array $messages = array())
@@ -126,6 +137,11 @@ class Validation
         return $output;
     }
 
+    /**
+     * @param string $field
+     * @param string|IValidatable $error
+     * @return $this
+     */
     public function addError($field, $error)
     {
         if (!isset($this->errors[$field])) {
@@ -137,6 +153,11 @@ class Validation
         return $this;
     }
 
+    /**
+     * @param string $errorMessage
+     * @param string $key
+     * @return $this
+     */
     public function addCustomError($errorMessage, $key = 'custom')
     {
         $this->addError($key, $errorMessage);
