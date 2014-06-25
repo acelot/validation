@@ -29,25 +29,34 @@ $validation
         array(
             new NotBlank()
         )
-    );
+    )
+    ->requiredRule(
+        'myField',
+        array(
+            new MyNamespace\Validators\MySuperValidator()
+        )
+    )
 try {
     // You can pass any array to validate
     $validation->validate($_POST);
 
-    // In this place all data is right. Make something!
+    /*
+     * In this place all data is right. Make something!
+     */
 } catch (ValidationRequiredFieldMissingException $e) {
     // Some required data is missing. For example, you can send status "400 Bad request"
+    $missingFields = $e->getMissingFields();
 } catch (ValidationException $e) {
     $errors = $e->getErrors(
         array(
             // Individual message for blank email field
-            'email::NotBlank'    => 'Please, input E-mail',
-
+            'email::NotBlank'                                    => 'Please, input E-mail',
             // Individual message for blank password field
-            'password::NotBlank' => 'Please. input password',
-
+            'password::NotBlank'                                 => 'Please. input password',
+            // Individual message for myField
+            'myField::MyNamespace\\Validators\\MySuperValidator' => 'Invalid myField',
             // Global message for Email validator
-            'Email'              => 'Invalid E-mail'
+            'Email'                                              => 'Invalid E-mail'
         )
     );
 }
