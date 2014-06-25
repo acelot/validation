@@ -22,45 +22,78 @@ class Validation
     }
 
     /**
-     * @param string $field
-     * @param array $validators
-     * @param boolean $stopOnFirst
-     * @param boolean $required
+     * Example:
+     * $rules = array(
+     *     'field1' => array(
+     *         'validators' => array(
+     *             new NotBlank(),
+     *             new Integer()
+     *         ),
+     *         'required' => true
+     *     ),
+     *     'field2' => array(
+     *         'validators' => array(
+     *             new NotBlank(),
+     *             new Regex('/[a-z]+/')
+     *         ),
+     *         'strict'     => false
+     *     ),
+     * )
+     *
+     * Defaults:
+     *     strict = true;
+     *     required = false;
+     *
+     * @param array $rules Rules (see example above)
+     */
+    public function setRules(array $rules)
+    {
+        foreach ($rules as $field => $rule) {
+            $this->rule($field, $rule['validators'], $rule['strict'], $rule['required']);
+        }
+    }
+
+    /**
+     * @param string  $field      Field name
+     * @param array   $validators Array of validators
+     * @param boolean $strict     Stop validating field on first error
+     * @param boolean $required   Is field required
      * @return $this
      */
-    public function rule($field, $validators, $stopOnFirst = true, $required = false)
+    public function rule($field, $validators, $required = false, $strict = true)
     {
         if ($validators instanceof IValidatable) {
             $validators = array($validators);
         }
 
         $this->rules[$field] = array(
-            'validators'  => $validators,
-            'stopOnFirst' => $stopOnFirst,
-            'required'    => $required
+            'validators' => $validators,
+            'strict'     => $strict,
+            'required'   => $required
         );
 
         return $this;
     }
 
     /**
-     * @param string $field
-     * @param array $validators
-     * @param boolean $stopOnFirst
+     * @param string  $field      Field name
+     * @param array   $validators Array of validators
+     * @param boolean $strict     Stop validating field on first error
      * @return $this
      */
-    public function requiredRule($field, $validators, $stopOnFirst = true)
+    public function requiredRule($field, $validators, $strict = true)
     {
-        $this->rule($field, $validators, $stopOnFirst, true);
+        $this->rule($field, $validators, true, $strict);
 
         return $this;
     }
 
     /**
-     * @param array $data
-     * @return boolean
+     * @param  array $data Validating array
+     * @throws Exception\ValidationRequiredFieldMissingException
+     * @throws Exception\ValidationException
      */
-    public function validate($data)
+    public function validate(array $data)
     {
         $this->errors = array();
         $missingFields = array();
@@ -79,7 +112,7 @@ class Validation
                         $this->addError($field, $validator);
 
                         // Stop validating field if $stopOnFirst set to true
-                        if ($rule['stopOnFirst']) {
+                        if ($rule['strict']) {
                             break;
                         }
                     }
@@ -105,8 +138,14 @@ class Validation
     }
 
     /**
-     * @param array $messages
-     * @return array
+     * Output:
+     * array(
+     *     'field1' => array('message1', 'message2'),
+     *     'field2' => array('message1', 'message2'),
+     * )
+     *
+     * @param  array $messages Array of message templates
+     * @return array Rendered messages
      */
     public function getErrors(array $messages = array())
     {
@@ -143,7 +182,7 @@ class Validation
     }
 
     /**
-     * @param string $field
+     * @param string              $field
      * @param string|IValidatable $error
      * @return $this
      */
