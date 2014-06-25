@@ -3,6 +3,8 @@ Validation
 
 Validation utility for PHP5
 
+[![Build Status](https://travis-ci.org/acelot/validation.svg)](https://travis-ci.org/acelot/validation)
+
 ## Key features
 
 - Exception based validation, ie validate() method throws special exception on error and not return `false` or `true`
