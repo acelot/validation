@@ -49,15 +49,25 @@ class Validation
     public function setRules(array $rules)
     {
         foreach ($rules as $field => $rule) {
+            $rule = array_merge(
+                array(
+                    'strict'   => true,
+                    'required' => false
+                ),
+                $rule
+            );
+
             $this->rule($field, $rule['validators'], $rule['strict'], $rule['required']);
         }
+
+        return $this;
     }
 
     /**
-     * @param string  $field      Field name
-     * @param array   $validators Array of validators
-     * @param boolean $strict     Stop validating field on first error
-     * @param boolean $required   Is field required
+     * @param string $field Field name
+     * @param array $validators Array of validators
+     * @param boolean $strict Stop validating field on first error
+     * @param boolean $required Is field required
      * @return $this
      */
     public function rule($field, $validators, $required = false, $strict = true)
@@ -76,9 +86,9 @@ class Validation
     }
 
     /**
-     * @param string  $field      Field name
-     * @param array   $validators Array of validators
-     * @param boolean $strict     Stop validating field on first error
+     * @param string $field Field name
+     * @param array $validators Array of validators
+     * @param boolean $strict Stop validating field on first error
      * @return $this
      */
     public function requiredRule($field, $validators, $strict = true)
@@ -182,7 +192,7 @@ class Validation
     }
 
     /**
-     * @param string              $field
+     * @param string $field
      * @param string|IValidatable $error
      * @return $this
      */
