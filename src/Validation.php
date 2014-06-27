@@ -64,10 +64,10 @@ class Validation
     }
 
     /**
-     * @param string $field Field name
-     * @param array $validators Array of validators
-     * @param boolean $strict Stop validating field on first error
-     * @param boolean $required Is field required
+     * @param string  $field      Field name
+     * @param array   $validators Array of validators
+     * @param boolean $strict     Stop validating field on first error
+     * @param boolean $required   Is field required
      * @return $this
      */
     public function rule($field, $validators, $required = false, $strict = true)
@@ -86,8 +86,8 @@ class Validation
     }
 
     /**
-     * @param string $field Field name
-     * @param array $validators Array of validators
+     * @param string  $field       Field name
+     * @param array   $validators  Array of validators
      * @param boolean $strict Stop validating field on first error
      * @return $this
      */
@@ -99,7 +99,7 @@ class Validation
     }
 
     /**
-     * @param  array $data Validating array
+     * @param array $data Validating array
      * @throws Exception\ValidationRequiredFieldMissingException
      * @throws Exception\ValidationException
      */
@@ -154,7 +154,7 @@ class Validation
      *     'field2' => array('message1', 'message2'),
      * )
      *
-     * @param  array $messages Array of message templates
+     * @param array $messages Array of message templates
      * @return array Rendered messages
      */
     public function getErrors(array $messages = array())
@@ -192,12 +192,16 @@ class Validation
     }
 
     /**
-     * @param string $field
+     * @param string              $field
      * @param string|IValidatable $error
      * @return $this
      */
     public function addError($field, $error)
     {
+        if (!is_string($error) || !($error instanceof IValidatable)) {
+            throw new \InvalidArgumentException('$error argument must be a string or instance of IValidatable!');
+        }
+
         if (!isset($this->errors[$field])) {
             $this->errors[$field] = array();
         }
