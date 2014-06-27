@@ -57,7 +57,7 @@ class Validation
                 $rule
             );
 
-            $this->rule($field, $rule['validators'], $rule['strict'], $rule['required']);
+            $this->rule($field, $rule['validators'], $rule['required'], $rule['strict']);
         }
 
         return $this;
