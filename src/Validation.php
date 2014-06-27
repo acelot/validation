@@ -198,7 +198,7 @@ class Validation
      */
     public function addError($field, $error)
     {
-        if (!is_string($error) || !($error instanceof IValidatable)) {
+        if (!is_string($error) && !($error instanceof IValidatable)) {
             throw new \InvalidArgumentException('$error argument must be a string or instance of IValidatable!');
         }
 
