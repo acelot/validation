@@ -31,6 +31,7 @@ class Integer extends AbstractValidator implements IValidatable
     public function validate($value, $wholeData = null)
     {
         $pattern = $this->unsigned ? '/^\d+$/' : '/^-?\d+$/';
-        return (new Regex($pattern))->validate($value);
+        $regexValidator = new Regex($pattern);
+        return $regexValidator->validate($value);
     }
 }
