@@ -66,8 +66,8 @@ class Validation
     /**
      * @param string  $field      Field name
      * @param array   $validators Array of validators
-     * @param boolean $strict     Stop validating field on first error
      * @param boolean $required   Is field required
+     * @param boolean $strict     Stop validating field on first error
      * @return $this
      */
     public function rule($field, $validators, $required = false, $strict = true)
@@ -78,8 +78,8 @@ class Validation
 
         $this->rules[$field] = array(
             'validators' => $validators,
-            'strict'     => $strict,
-            'required'   => $required
+            'required'   => $required,
+            'strict'     => $strict
         );
 
         return $this;
@@ -109,15 +109,13 @@ class Validation
         $missingFields = array();
 
         foreach ($this->rules as $field => $rule) {
-            /** @var $validator IValidatable */
-            foreach ($rule['validators'] as $validator) {
-                if (!isset($data[$field])) {
-                    if ($rule['required']) {
-                        $missingFields[] = $field;
-                    }
-
-                    break;
-                } else {
+            if (!isset($data[$field])) {
+                if ($rule['required']) {
+                    $missingFields[] = $field;
+                }
+            } else {
+                /** @var $validator IValidatable */
+                foreach ($rule['validators'] as $validator) {
                     if (!$validator->validate($data[$field], $data)) {
                         $this->addError($field, $validator);
 
